@@ -9,7 +9,7 @@ Developped mainly for Urban Terror by Antoine Méresse (IG: Flirow)
 ## Download
 
 ```shell
-go install github.com/AntoineMeresse/quake3-rcon-go@latest
+go get github.com/AntoineMeresse/quake3-rcon-go@latest
 ```
 
 ### Main Usage
