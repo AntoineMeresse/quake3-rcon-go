@@ -93,10 +93,15 @@ func cleanEmptyLines(datas []string) []string {
 }
 
 func PrintSplitReadInfos(infos string) {
-	fmt.Printf("\n==================================== Print Read Infos ====================================")
+	fmt.Printf("\n~~~~~~~~~~ Print Read Infos ~~~~~~~~~~")
 	cmd, datas := SplitReadInfos(infos)
 	fmt.Printf("\nType: %s", cmd)
-	fmt.Printf("\nLines: %d, datas : %v\n", len(datas), datas)
+	datasLength := len(datas)
+	if datasLength > 1 {
+		fmt.Printf("\nLines: %d\n", len(datas))
+	} else {
+		fmt.Printf("\nLine: %d\n", len(datas))
+	}
 	for i, l := range(datas) {
 		fmt.Printf("   |----> %2d) %s\n", i+1, l)
 	}
