@@ -106,22 +106,3 @@ func PrintSplitReadInfos(infos string) {
 		fmt.Printf("   |----> %2d) %s\n", i+1, l)
 	}
 }
-
-// Usage: 
-	// Setup rcon object
-	// rcon := quake3_rcon.Rcon{ServerIp: "localhost", ServerPort: 27960, Password: "todefine", Connection: nil}
-	// rcon.Connect()
-	// defer rcon.CloseConnection()
-
-	// ///////////////////////////////////////////////////////////////////// Example of command which doesn't require to handle response:
-	// res := rcon.RconCommand("bigtext Hello")
-	// quake3_rcon.SplitReadInfos(res)
-
-	// ///////////////////////////////////////////////////////////////////// Example of command which might require to handle response:
-	// res = rcon.RconCommand("sv_fps")
-	// // In 2 steps:
-	// responseType, datas := quake3_rcon.SplitReadInfos(res)
-	// fmt.Printf("[Response] Type: %s, datas: %v", responseType, datas) // [Response] Type: print, datas: ["sv_fps" is:"125^7" default:"20^7"]
-	// // [Bonus] (mainly for debugging purpose)
-	// quake3_rcon.PrintSplitReadInfos(res) // Shorter command with some nice printing to display responseType & datas
-// }
