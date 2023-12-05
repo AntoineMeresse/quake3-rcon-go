@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -12,13 +13,13 @@ var PacketPrefix = []byte{'\xff', '\xff', '\xff' ,'\xff'}
 
 type Rcon struct {
 	ServerIp string
-	ServerPort int
+	ServerPort string
 	Password string
 	Connection net.Conn
 }
 
 func (rcon *Rcon) Connect() {
-	serverAddress := fmt.Sprintf("%s:%d", rcon.ServerIp, rcon.ServerPort)
+	serverAddress := fmt.Sprintf("%s:%s", rcon.ServerIp, rcon.ServerPort)
 	conn, err := net.Dial("udp", serverAddress)
 
 	if err != nil {
@@ -62,6 +63,21 @@ func (rcon Rcon) RconCommand(command string) (res string) {
 		rcon.Send(command)
 		return rcon.Read()
 	}
+	return ""
+}
+
+func (rcon Rcon) RconCommandExtractValue(command string) string {
+	fields := rcon.RconCommand(command)
+	fields = strings.Replace(fields, "\n", " ", -1);
+	tmpSplit := cleanEmptyLines(strings.Split(fields, " "))
+
+	for _, elem := range tmpSplit {
+		if strings.Contains(elem, "is:") {
+			myregex := regexp.MustCompile(`\^\d`)
+			return myregex.ReplaceAllString(strings.Split(elem, "is:")[1], "")
+		}
+	}
+
 	return ""
 }
 
