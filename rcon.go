@@ -73,8 +73,11 @@ func (rcon Rcon) RconCommandExtractValue(command string) string {
 
 	for _, elem := range tmpSplit {
 		if strings.Contains(elem, "is:") {
-			myregex := regexp.MustCompile(`\^\d`)
-			return myregex.ReplaceAllString(strings.Split(elem, "is:")[1], "")
+			decolor_regex := regexp.MustCompile(`\^\d`)
+			decolor := decolor_regex.ReplaceAllString(strings.Split(elem, "is:")[1], "")
+			
+			sign_regex := regexp.MustCompile(`"|,`)
+			return sign_regex.ReplaceAllString(decolor, "")
 		}
 	}
 
